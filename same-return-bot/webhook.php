@@ -39,36 +39,36 @@ foreach ($client->parseEvents() as $event) {
                     ]);
                     break;
 				//位置情報が送られてきた際にそれに応じた店舗情報を表示
-				case 'location':
-					//curlを使用してホットペッパーのAPIの情報を取得
-					$url = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=cc29602db3328cad&lat=34.67&lng=135.52&range=5&order=4";
-					//cURLセッションを初期化
-					$ch = curl_init();
-					//cURLのオプション設定
-					curl_setopt($ch, CURLOPT_URL, $url);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-					//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-					//URLの情報を取得
-					$response = curl_exec($ch);
-					//セッションの終了
-					curl_close($ch);
-					//取得結果の表示
-					$result = json_decode($response, true);
-					for ($i = 0; $i < 10; $i++) {
-					//該当範囲にデータが存在した場合に名前を表示(試験的に大阪周辺の情報を入力済み
-					//foreach ($response as $name) {
-						$client->replyMessage([
-							'replyToken' => $event['replyToken'],
-							'messages' => [
-								[
-									'type' => 'text',
-									'text' => $result["results"]["shop"][$i]["name"]
-								]
-							]
-						]);
-					}
-					break;
+//				case 'location':
+//					//curlを使用してホットペッパーのAPIの情報を取得
+//					$url = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=cc29602db3328cad&lat=34.67&lng=135.52&range=5&order=4";
+//					//cURLセッションを初期化
+//					$ch = curl_init();
+//					//cURLのオプション設定
+//					curl_setopt($ch, CURLOPT_URL, $url);
+//					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//					curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//					//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+//					//URLの情報を取得
+//					$response = curl_exec($ch);
+//					//セッションの終了
+//					curl_close($ch);
+//					//取得結果の表示
+//					$result = json_decode($response, true);
+//					for ($i = 0; $i < 10; $i++) {
+//					//該当範囲にデータが存在した場合に名前を表示(試験的に大阪周辺の情報を入力済み
+//					//foreach ($response as $name) {
+//						$client->replyMessage([
+//							'replyToken' => $event['replyToken'],
+//							'messages' => [
+//								[
+//									'type' => 'text',
+//									'text' => $result["results"]["shop"][$i]["name"]
+//								]
+//							]
+//						]);
+//					}
+//					break;
 				default:
                     error_log('Unsupported message type: ' . $message['type']);
                     break;
