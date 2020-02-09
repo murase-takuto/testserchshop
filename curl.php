@@ -4,10 +4,9 @@
 //0,100,200,,,,
 $start = 0;
 //01,02,03,,,,,,,
-$pref_cd = "13";
+$pref_cd = "02";
 //0011,,0012,0013 koku kou shiritsu
-$type_id = "0013";
-
+$type_id = "0011";
 
 $url = "http://webservice.recruit.co.jp/shingaku/school/v2?&order=0&category=$type_id&start=$start&pref_cd=$pref_cd&count=100&key=cc29602db3328cad&format=json";
 //cURLセッションを初期化
@@ -25,11 +24,11 @@ $result = json_decode($response, true);
 ?>
 <?php
 for ($i = 0; $i < 100; $i++) : ?>
-	<font color="red"><?php echo sprintf('%02d', $pref_cd) . sprintf('%03d', $i + $start) . " => " . '[' . "<br>" . "'name' => " . $result["results"]["school"][$i]["name"] . "," .  "<br>" . "'fuculty' => [" . "<br>";?></font>
+	<font color="red"><?php echo sprintf('%02d', $pref_cd) . $type_id . sprintf('%03d', $i + $start) . " => " . '[' . "<br>" . "'name' => " . "'" . $result["results"]["school"][$i]["name"] . "'" . "," .  "<br>" . "'fuculty' => [" . "<br>";?></font>
 	<?php
 	$number = count($result["results"]["school"][$i]["org"]);
 	for ($j = 0; $j < $number; $j++) : ?>
-	<font color="blue"><?php echo $j . " => " .  "'" . $result["results"]["school"][$i]["org"][$j]["name"] . "'" . "<br>";?></font>
+	<font color="blue"><?php echo $j . " => " .  "'" . $result["results"]["school"][$i]["org"][$j]["name"] . "'," . "<br>";?></font>
 <?php
 endfor;
 ?>
@@ -49,5 +48,6 @@ endfor;
 ?>
 
 <?php
+echo "]" . "<br>" . "]," . "<br>";
 endfor;
 ?>
